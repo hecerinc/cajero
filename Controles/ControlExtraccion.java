@@ -10,7 +10,7 @@ public class ControlExtraccion {
 	 
 	// Valida si la cuenta existe en la base de datos
 	public boolean validarCuenta(int ncuenta){
-		return(cuenta.validar(ncuenta));
+		return cuenta.validar(ncuenta);
 	}
 	 
 	// Implementa una regla de negocio;

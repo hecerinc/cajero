@@ -13,14 +13,13 @@ public class InterfazExtraccion extends HttpServlet {
 
 	//Es importante observar que todos los metodos definen la operacion GET para
 	//que el metodo doGet sea el que se ejecuta al presionar el boton "Enviar".
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-				throws IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		thisResponse = response;
 		thisRequest = request;
 		thisResponse.setContentType("text/html");
 		out = thisResponse.getWriter();
 		//Preparar el encabezado de la pagina Web de respuesta
-		out.println("<!DOCTYPE html >");
+		out.println("<!DOCTYPE html>");
 		out.println("<html>");
 		out.println("<head>");
 		out.println("<meta charset=\"utf-8\">");
@@ -33,9 +32,11 @@ public class InterfazExtraccion extends HttpServlet {
 		String operacion = request.getParameter("operacion");
 		if(operacion == null){ // El menu nos envia un parametro para indicar el inicio de una transaccion
 			iniciarExtraccion();
-		}else if(operacion.equals("validar")){
+		}
+		else if(operacion.equals("validar")){
 			 validarCuenta();
-		} else if (operacion.equals("extraer")){
+		} 
+		else if (operacion.equals("extraer")){
 			extraerEfectivo();
 		}
 	}
