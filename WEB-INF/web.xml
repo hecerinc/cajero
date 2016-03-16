@@ -18,6 +18,7 @@
 	<servlet>
 		<servlet-name>Consulta</servlet-name>
 		<servlet-class>Interfaces.InterfazConsulta</servlet-class>
+		<!-- <jsp-file>/consulta.jsp</jsp-file> -->
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Consulta</servlet-name>

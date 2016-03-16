@@ -6,30 +6,32 @@ import java.util.*;
 import Controles.ControlExtraccion;
 
 public class InterfazConsulta extends HttpServlet {
-	HttpServletResponse thisResponse;
-	HttpServletRequest thisRequest;
-	PrintWriter out;
-	ControlExtraccion ce;
+	// HttpServletResponse thisResponse;
+	// HttpServletRequest thisRequest;
+	// PrintWriter out;
+	// ControlExtraccion ce;
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		thisResponse = response;
-		thisResponse.setContentType("text/html");
-		out = thisResponse.getWriter();
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-		out.println("<!DOCTYPE html>");
-		out.println("<html>");
-		out.println("<head>");
-		out.println("<meta charset=\"utf-8\">");
-		out.println("</head>");
-		out.println("<body>");
-		out.println("<title>Banco AMSS</title>");
-		out.println("<h2>Cajero Electronico</h2>");
-		out.println("<h3>Consultar Saldo</h3>");
-		out.println("<p>Esta opción no esta disponible por el momento.</p>");
-		out.println("<p></p>");
-		out.println("<a href=\"menu.html\"> Regresar al menu principal </a>");
-		out.println("</body>");
-		out.println("</html>");
+		request.setAttribute("isPost", false);
+		request.getRequestDispatcher("consulta.jsp").forward(request, response);
+	}
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		request.setAttribute("isPost", true);
+		int cuenta = Integer.parseInt(request.getParameter("cuenta").trim());
+		// Validate that the account exists
+		ControlExtraccion ce = new ControlExtraccion();
+		boolean exists = ce.validarCuenta(cuenta);
+
+		if(exists){
+			float saldo = ce.consultaSaldo(cuenta);
+			request.setAttribute("saldo", saldo);
+		}
+		request.setAttribute("exists", exists);
+		request.setAttribute("cuenta", cuenta);
+		request.getRequestDispatcher("consulta.jsp").forward(request, response);
 	}
 
 }
